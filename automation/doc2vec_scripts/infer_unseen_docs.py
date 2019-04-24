@@ -156,6 +156,8 @@ def infer_company(url, lock):
         return
     time_count["total_bow_time"] += t1
     words = words.split(" ")
+    if len(words) < 250:
+        return
     s = time.time()
     vector = model.infer_vector(words)
     t2 = time.time() - s
@@ -216,9 +218,12 @@ def load_vocab(vocab, total_time=0):
 
 
 def infer_private_companies(alpha=-1, topn=top):
-    #work from here
     vocab_file = working_dir + properties["evaluation.private_vocab_filename_prefix"] + str(current_year)
-    peer_filepath = working_dir + properties["training.private_peer_dir_name"] + "/" + \
+    peer_dir = working_dir + properties["training.private_peer_dir_name"]
+    if not os.path.isdir(peer_dir):
+        os.mkdir(peer_dir)
+
+    peer_filepath = peer_dir + "/" + \
                     properties["training.private_peers_filename_prefix"] + str(current_year) + ".csv"
 
     report_filepath = os.path.join(working_dir, properties["evaluation.infer_report_filename_prefix"] + str(current_year) + ".txt")

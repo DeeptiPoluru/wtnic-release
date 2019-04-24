@@ -82,5 +82,5 @@ if __name__ == "__main__":
         print "Input folder not found!"
         exit(0)
 
-    filename = properties.get("evaluation.public_result_filename_prefix", "Rsquare_output_") + str(current_year) + ".json "
+    filename = properties.get("evaluation.public_result_filename_prefix", "Rsquare_output_") + str(current_year) + ".json"
     LR_sci_kit(input_folder, filename)
