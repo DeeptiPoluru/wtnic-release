@@ -1,9 +1,9 @@
-#WTNIC
+# WTNIC  
 #### Web Text-based Network Industry Classification  
 
 Capturing Organizational Form, Competition, and Industry Change through Text-mining of Private and Public Firm Webpages  
 
-### Getting Started
+### Getting Started  
 
 Currently we have web crawled data for public and private firms. For each firm, we have stored words in order in 
 text files. So you will find ordered bag of words for each firm sorted according to years. We have public companies' data
@@ -13,7 +13,7 @@ from 1996-2016, and private companies' data from 1994-2017.
 All the source code for this system is written in Python. So all the requirements for modules are listed in 
 ```requirements.txt``` file. So create a virtual environment and install all these packages in that environment.  
 
-##### For Example
+##### For Example  
 ```
 virtualenv wtnic_venv
 source wtnic_venv/bin/activate
@@ -24,11 +24,11 @@ To deactivate the virtual environment:
 deactivate
 ```
 
-##Workflow with Document embedding using Doc2Vec  
+## Workflow with Document embedding using Doc2Vec  
 
 All the python scripts for this particular exercise can be found in  ```automation/doc2vec_sripts/``` directory. And the 
 master files for mapping between different IDs can be found in ```automation/master_files``` directory.
- * ###Training
+ * ### Training  
     According to our experiments, we have finalized to train Doc2Vec model with randomly sampled 32000 private companies and
     all of the public companies available in that year.  
     
@@ -71,7 +71,7 @@ master files for mapping between different IDs can be found in ```automation/mas
        pair wise similarity scores for public companies.
 
 
- * ###Evaluating public companies' competition
+ * ### Evaluating public companies' competition  
     In this section we will calculate the R-square value using the peer file generated in the above step. 
     
      * Following script execution will take 2% top peers according to the similarity scores and join them with available 
@@ -96,7 +96,7 @@ evaluated R-square value.
 
 
    
- * ###Evaluating private companies' competition
+ * ### Evaluating private companies' competition  
     In this section, we will try to evaluate the accuracy of our model by testing the entire network of private companies.
 As the training model only contains 32000 randomly sampled private companies and their vectors, in this following step
 we will infer vectors for all the remaining companies by using the pre-trained model for that year. And finally, we'll 
