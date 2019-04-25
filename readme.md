@@ -17,7 +17,7 @@ All the source code for this system is written in Python. So all the requirement
 ```
 virtualenv wtnic_venv
 source wtnic_venv/bin/activate
-pip install -r requeriments.txt
+pip install -r requirements.txt
 ```
 To deactivate the virtual environment:
 ```

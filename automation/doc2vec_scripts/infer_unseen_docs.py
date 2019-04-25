@@ -17,14 +17,6 @@ if not current_year or '1996' > current_year:
     print "Invalid year input"
     exit(0)
 
-threshold = 0.22
-if len(sys.argv) > 2 and sys.argv[2]:
-    threshold = float(sys.argv[2])
-
-top = 15.0
-if len(sys.argv) > 3 and sys.argv[3]:
-    top = float(sys.argv[3])
-
 properties = {}
 f = open("config.properties", "r")
 for line in f:
@@ -33,6 +25,15 @@ for line in f:
         continue
     properties[parts[0].strip()] = parts[1].strip()
 f.close()
+
+threshold = float(properties["evaluation.default_infer_threshold"])
+if len(sys.argv) > 2 and sys.argv[2]:
+    threshold = float(sys.argv[2])
+
+top = float(properties["evaluation.default_top_peers_per_company"])
+if len(sys.argv) > 3 and sys.argv[3]:
+    top = float(sys.argv[3])
+
 
 working_dir = properties.get("home_directory", "/dartfs-hpc/rc/lab/P/PhillipsG/experiments/wtnic/") + current_year + "/"
 current_year = int(current_year)
@@ -135,7 +136,7 @@ def generate_bag_of_words(company):
     return words
 
 
-def infer_company(url, lock):
+def infer_company(url, min_word_count):
     key = url.strip()
     if key == "" or key not in firmIds:
         return
@@ -156,7 +157,7 @@ def infer_company(url, lock):
         return
     time_count["total_bow_time"] += t1
     words = words.split(" ")
-    if len(words) < 250:
+    if len(words) < min_word_count:
         return
     s = time.time()
     vector = model.infer_vector(words)
@@ -167,10 +168,11 @@ def infer_company(url, lock):
 
 
 def create_processes(temp):
+    min_word_count = int(properties["evaluation.minimum_word_count_per_company"])
     jobs = []
     try:
         for c in temp:
-            p = multiprocessing.Process(target=infer_company, args=(c, 1))
+            p = multiprocessing.Process(target=infer_company, args=(c, min_word_count))
             jobs.append(p)
 
         for job in jobs:

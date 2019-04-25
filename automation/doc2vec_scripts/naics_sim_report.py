@@ -42,14 +42,6 @@ f = open(properties["firmid_naics_mapping_dict_filepath"], "r")
 firmid_naics = ast.literal_eval(f.read())
 f.close()
 
-yearwise_private_count = {}
-f = open(properties["private_yearwise_count_filepath"], "r")
-for line in f:
-    line = line.strip().split("\t")
-    if len(line) < 2:
-        continue
-    yearwise_private_count[int(line[0])] = int(line[1])
-
 
 def valid_naics(code):
     return (6 - len(code)) * "0" + code
@@ -164,14 +156,28 @@ def pre_processing(filename, total_comapnies):
     return required_top_peers2, required_top_peers3, required_top_peers4, required_top_peers5, required_top_peers6
 
 
+def count_lines(filename):
+    if not os.path.isfile(filename):
+        print "Filename: " + filename + " not found."
+        return 0
+    count = 0
+    f = open(filename, "r")
+    for line in f:
+        if not line:
+            continue
+        count += 1
+    f.close()
+    return count
+
+
 filenames = glob.glob(working_dir + properties["training.private_peer_dir_name"] + "/*.csv")
 print filenames
 for filepath in filenames:
     start_time = time.time()
     print "filepath: ", filepath
-    total_firms = yearwise_private_count[current_year]
     filename = os.path.join(working_dir,
                             properties["evaluation.infer_tags_filename_prefix"] + str(current_year) + ".txt")
+    total_firms = count_lines(filename)
     s = time.time()
     x = pre_processing(filename, total_firms)
     print "pre-processing ", time.time() - s
