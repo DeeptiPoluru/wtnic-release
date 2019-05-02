@@ -49,7 +49,6 @@ directory = "public_companies_firmid_gvkeys_yearwise/"
 if not os.path.isdir(directory):
     os.mkdir(directory)
 
-
 for year, value in yearwise_gvkeys.iteritems():
     path = directory + str(year) + ".csv"
     f = open(path, "w")

@@ -13,7 +13,7 @@ def normalize_url(company):
     return url
 
 
-f = open("/usr/local/apache2/htdocs/ISI/wtnic/automation_Fall2017/summer/scalability/master/new_normalized_naics_code.txt", "r")
+f = open("new_normalized_naics_code.txt", "r")
 naics_code = ast.literal_eval(f.read().strip())
 f.close()
 
@@ -27,11 +27,11 @@ firm_id += 1
 
 print "next firm id: ", firm_id
 
-f = open("../masterId_firmId_mapping.txt", "r")
+f = open("masterId_firmId_mapping.txt", "r")
 master_firm_id = ast.literal_eval(f.read().strip())
 f.close()
 
-f = open('../URL_id_file.txt', "r")
+f = open('URL_id_file.txt', "r")
 lineCount = 0
 master = {}
 #name, [id, {years}]

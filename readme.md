@@ -56,7 +56,10 @@ master files for mapping between different IDs can be found in ```automation/mas
        
        For our example, after successful execution of this program, it'll store the model in ```2000/model/``` directory with
        filename ```doc2vec_model_2000```, and also will output a file with all the companies for which vectors can be found
-       in that model, named as ```post_training_tags_2000.txt```.
+       in that model, named as ```post_training_tags_2000.txt```.  
+       
+       Note: This training process can take approximately 1-2 days depending on the sample size. (Experimented on Dartmouth
+       Discovery cluster)
        
        Currently, we have following training parameters:
        ```commandline
@@ -110,8 +113,8 @@ between them. For this exercise, we have to run following scripts in order.
         python infer_unseen_docs.py <year> <threshold> <top>
         ```
         
-        After succesfull execution of this program, it'll store all the calculated vectors for companies in the file at
-        `2000/private_keyedvectors_2000`.
+        The execution of this program may take around a week to complete. After succesfull execution of this program, 
+        it'll store all the calculated vectors for companies in the file at `2000/private_keyedvectors_2000`.
         
         For this program, we have two additional parameters which are used to prune the unnecessary peer score calculation.
         `threshold` is a floating point number, which is used as a threshold for similarity score, below which we won't 

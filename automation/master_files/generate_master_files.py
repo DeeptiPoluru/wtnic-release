@@ -68,10 +68,10 @@ for url, value in firmIds.iteritems():
 
 print len(new_firmIds) # 726891
 
-#repeats were written to a file - /usr/local/apache2/htdocs/ISI/wtnic/automation_Fall2017/summer/scalability/master/repeat_urls_removing_scheme.txt
+#repeats were written to a file - repeat_urls_removing_scheme.txt
 
 ywc = open("year_wise_private_companies_count.txt", "w")
-directory = "/usr/local/apache2/htdocs/ISI/wtnic/automation_Fall2017/summer/scalability/master/yearwise_companies_list/"
+directory = "yearwise_companies_list/"
 
 for year, companies in yearWiseCompanies.iteritems():
     f = open(directory + str(year) + ".txt", "w")
