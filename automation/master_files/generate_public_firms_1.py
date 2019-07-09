@@ -29,7 +29,7 @@ firmIds = ast.literal_eval(f.read())
 f.close()
 
 yearwise_gvkeys = {}
-with open("PubicFirm_URLs_1995_2017_All.txt") as csvfile:
+with open("PubicFirm_URLs_1995_2017_Optimized.txt") as csvfile:
     cs = csv.reader(csvfile, delimiter='\t', quotechar='"')
     for c in list(cs)[1:]:
         year = int(c[4])
@@ -55,7 +55,7 @@ for year, value in yearwise_gvkeys.iteritems():
     count = 0
     f.write("company\tfirm_id\tgvkey\tprofit_assets\tprofit_sales\tstock_return\tvaluation\n")
     for company, items in value.iteritems():
-        datapath = "/dartfs-hpc/rc/lab/P/PhillipsG/s3data/" + company
+        datapath = "s3data/" + company
         if company in firmIds and os.path.isdir(datapath):
             firmid = firmIds[company][0]
             f.write(company + "\t" + str(firmid) + "\t" + str(items[0]) + "\t" + str(items[1]) + "\t" +

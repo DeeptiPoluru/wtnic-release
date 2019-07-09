@@ -29,7 +29,7 @@ naics_code = ast.literal_eval(f.read())
 f.close()
 
 yearwise_gvkeys = {}
-with open("PubicFirm_URLs_1995_2017_All.txt") as csvfile:
+with open("PubicFirm_URLs_1995_2017_Optimized.txt") as csvfile:
     cs = csv.reader(csvfile, delimiter='\t', quotechar='"')
     for c in list(cs)[1:]:
         year = int(c[4])
@@ -56,7 +56,7 @@ for year, value in yearwise_gvkeys.iteritems():
     f = open(path, "w")
     count = 0
     for company, gvkey in value.iteritems():
-        datapath = "/dartfs-hpc/rc/lab/P/PhillipsG/s3data/" + company
+        datapath = "s3data/" + company
         if company in naics_code and os.path.isdir(datapath):
             count += 1
             f.write(company + "\n")
